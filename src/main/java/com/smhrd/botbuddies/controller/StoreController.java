@@ -21,6 +21,7 @@ public class StoreController {
 
     @RequestMapping("/storeList")
     public List<Store> user_info(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
         System.out.println(requestData.get("id"));
         String id = requestData.get("id");
         List<Store> storeList = null;
@@ -39,5 +40,16 @@ public class StoreController {
         
     }
 
-    // 지수빈은보아라
+    @RequestMapping("/search_result")
+    public List<Store> searchResult(@RequestBody Map<String, String> requestData){
+        System.out.println("들어왔음");
+        System.out.println(requestData.get("searchQuery"));
+        String searchQuery = requestData.get("searchQuery");
+        List<Store> storeList = null;
+        storeList = mapper.searchResult(searchQuery);
+
+        return storeList;
+
+    }
+
 }

@@ -12,4 +12,5 @@ public interface StoreMapper {
 
     public List<Store> storeList(String id);
 
+    public List<Store> searchResult(String searchQuery);
 }

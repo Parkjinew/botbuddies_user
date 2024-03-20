@@ -22,5 +22,7 @@ public class Store {
     private String state;
     private String open_time;
     private String end_time;
+    private int AverageRating;
+    private int ReviewCount;
 
 }
