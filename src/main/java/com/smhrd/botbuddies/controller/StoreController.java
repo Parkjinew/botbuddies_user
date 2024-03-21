@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Store;
+import com.smhrd.botbuddies.entity.StoreMenu;
 import com.smhrd.botbuddies.mapper.StoreMapper;
 
 
@@ -57,22 +59,25 @@ public class StoreController {
 
 
     @RequestMapping("/storeinfo")
-    public List<Store> store_info(@RequestBody Map<String, String> requestData) {
+    public StoreMenu store_info(@RequestBody Map<String, String> requestData) {
         System.out.println("들어왔음");
         System.out.println(requestData.get("id"));
         String id = requestData.get("id");
-        List<Store> storeList = null;
-
-        if(id.equals("0")){
-            storeList = mapper.storeListAll();
-        } else{
-            
-            storeList = mapper.storeList(id);
-        }
         
-        System.out.println(storeList.toString());
 
-        return storeList;
+        Store storeinfo = mapper.storeInfo(id);
+        List<Menu> menuList = mapper.menuList(id);
+        
+        System.out.println(storeinfo.toString());
+        for(Menu i : menuList){
+            System.out.println(i.toString());
+        }
+
+        StoreMenu storeMenu = new StoreMenu(storeinfo, menuList);
+        System.out.println(storeMenu.toString());
+
+        
+        return storeMenu;
         
         
     }
