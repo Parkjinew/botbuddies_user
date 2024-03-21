@@ -55,4 +55,26 @@ public class StoreController {
 
     }
 
+
+    @RequestMapping("/storeinfo")
+    public List<Store> store_info(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        System.out.println(requestData.get("id"));
+        String id = requestData.get("id");
+        List<Store> storeList = null;
+
+        if(id.equals("0")){
+            storeList = mapper.storeListAll();
+        } else{
+            
+            storeList = mapper.storeList(id);
+        }
+        
+        System.out.println(storeList.toString());
+
+        return storeList;
+        
+        
+    }
+
 }
