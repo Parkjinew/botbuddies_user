@@ -82,6 +82,55 @@ public class StoreController {
         
     }
 
+    @RequestMapping("/storeAlign")
+    public List<Store> storeAlign(@RequestBody Map<String, String> requestData) {
+        String align = requestData.get("align");
+        String category = requestData.get("category");
+        
+        System.out.println(align);
+        System.out.println(category);
+
+        List<Store> storeList = null;
+
+        if(category.equals("0")){
+            if(align.equals("align")){
+                storeList = mapper.storeListAll();
+
+            } else if(align.equals("distance")){
+                storeList = mapper.storeListAll();
+
+            } else if(align.equals("rating")){
+                storeList = mapper.storeListAllScore();
+
+            } else{
+                storeList = mapper.storeListAllReview();
+
+            }
+
+        } else{
+            if(align.equals("align")){
+                storeList = mapper.storeList(category);
+
+            } else if(align.equals("distance")){
+                storeList = mapper.storeList(category);
+
+            } else if(align.equals("rating")){
+                storeList = mapper.storeListScore(category);
+
+            } else{
+                storeList = mapper.storeListReview(category);
+                
+            }
+
+        }
+
+                
+
+        return storeList;
+        
+        
+    }
+
 
 
 

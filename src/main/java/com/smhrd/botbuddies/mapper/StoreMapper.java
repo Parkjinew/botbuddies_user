@@ -18,4 +18,12 @@ public interface StoreMapper {
     public Store storeInfo(String id);
 
     public List<Menu> menuList(String id);
+
+    public List<Store> storeListAllScore();
+
+    public List<Store> storeListScore(String id);
+
+    public List<Store> storeListAllReview();
+
+    public List<Store> storeListReview(String id);
 }
