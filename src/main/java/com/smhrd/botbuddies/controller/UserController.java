@@ -11,6 +11,9 @@ import com.smhrd.botbuddies.mapper.UserMapper;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class UserController {
@@ -46,4 +49,25 @@ public class UserController {
         return  info;
     }
 
+
+    @RequestMapping("/signin")
+    public List<User> signin(@RequestBody Map<String, String> requestData){
+        String id = requestData.get("id");
+        String password = requestData.get("password");
+
+        System.out.println("Received ID: " + id);
+        System.out.println("Received password: " + password);
+
+        List<User> userInfo = mapper.signin(id, password);
+
+        if (userInfo != null  && !userInfo.isEmpty()) {
+            
+
+            return userInfo;
+        } else {
+       
+            return null;
+        }
+    }
+    
 }
