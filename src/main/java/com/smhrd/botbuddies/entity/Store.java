@@ -9,8 +9,6 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-
-
 public class Store {
 
 
@@ -53,6 +51,6 @@ public class Store {
         this.ImageFilename = ImageFilename;
     }
 
-
+    
     
 }
