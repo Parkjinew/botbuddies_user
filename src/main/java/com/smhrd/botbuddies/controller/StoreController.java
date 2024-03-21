@@ -22,7 +22,7 @@ public class StoreController {
     private StoreMapper mapper;
 
     @RequestMapping("/storeList")
-    public List<Store> user_info(@RequestBody Map<String, String> requestData) {
+    public List<Store> storeList(@RequestBody Map<String, String> requestData) {
         System.out.println("들어왔음");
         System.out.println(requestData.get("id"));
         String id = requestData.get("id");
