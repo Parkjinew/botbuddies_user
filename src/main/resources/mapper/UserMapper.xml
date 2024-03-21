@@ -4,4 +4,8 @@
 <select id="selectUser" resultType="com.smhrd.botbuddies.entity.User">
 select * from USERS
 </select>
+
+<select id="signin" parameterType='String' resultType="com.smhrd.botbuddies.entity.User">
+select * from USERS where user_id = #{id} and user_pw = #{password}
+</select>
 </mapper>

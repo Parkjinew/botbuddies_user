@@ -11,5 +11,6 @@ public interface UserMapper {
 
     public List<User> selectUser();
 
+    public List<User> signin(String id,String password);
 
 }
