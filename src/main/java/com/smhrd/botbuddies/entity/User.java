@@ -25,5 +25,8 @@ public class User {
     private String state;
     private String location;
     private String joined_at;
-
+    private String store_name;
+    private String category_seq;
+    private String AverageRating;
+    private String ReviewCount;
 }

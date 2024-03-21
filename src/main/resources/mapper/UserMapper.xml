@@ -11,7 +11,7 @@ select * from USERS where user_id = #{id} and user_pw = MD5(#{password})
 
 
 <select id="favorite" parameterType='String' resultType="com.smhrd.botbuddies.entity.User">
-select s.store_name, s.category_seq, AVG(r.score) AS AverageRating, COUNT(r.title) AS ReviewCount FROM USERS m INNER JOIN INTEREST i ON m.user_id = i.user_id INNER JOIN STORES s ON i.store_seq = s.store_seq LEFT JOIN REVIEWS r ON s.store_seq = r.store_seq where m.user_id = #{id} GROUP BY s.store_name, s.category_seq;
+select s.store_name, s.category_seq, AVG(r.score) AS AverageRating, COUNT(r.title) AS ReviewCount, ri.image_filename AS ReviewImageFilename FROM USERS m INNER JOIN INTEREST i ON m.user_id = i.user_id INNER JOIN STORES s ON i.store_seq = s.store_seq LEFT JOIN REVIEWS r ON s.store_seq = r.store_seq LEFT JOIN REVIEW_IMG ri ON r.review_seq = ri.review_seq where m.user_id = #{id} GROUP BY s.store_name, s.category_seq, ri.image_filename
 </select>
 
 
