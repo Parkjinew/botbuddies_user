@@ -13,5 +13,5 @@ public interface UserMapper {
 
     public List<User> signin(String id,String password);
 
-
+    public List<User> favorite(String id);
 }

@@ -47,5 +47,13 @@ public class UserController {
         }
     }
     
-   
+    @RequestMapping("/favorite")
+    public List<User> favofite(@RequestBody Map<String, String> requestData){
+        String id = requestData.get("id");
+        System.out.println("Received ID: " + id);
+        List<User> userInfo = mapper.favorite(id);
+
+        return userInfo;
+    }
+
 }
