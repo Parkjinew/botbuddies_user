@@ -51,7 +51,7 @@ public class UserController {
         String id = requestData.get("id");
         System.out.println("Received ID: " + id);
         List<User> userInfo = mapper.favorite(id);
-
+        System.out.println(userInfo);
         return userInfo;
     }
 
