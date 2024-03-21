@@ -38,11 +38,10 @@ public class UserController {
         List<User> userInfo = mapper.signin(id, password);
 
         if (userInfo != null  && !userInfo.isEmpty()) {
-            
-
+            System.out.println("Received ID: " + userInfo);
             return userInfo;
-        } else {
-       
+        } else { 
+            
             return null;
         }
     }
