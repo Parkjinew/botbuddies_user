@@ -10,7 +10,7 @@ select store_seq, user_id, store_name, store_addr, store_phone, category_seq, st
 </select>
 
 <select id="searchResult" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq WHERE S.store_name LIKE CONCAT('%' , #{searchQuery} , '%') GROUP BY S.store_seq, S.store_name, S.category_seq
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.store_name LIKE CONCAT('%' , #{searchQuery} , '%') GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
 </select>
 
 </mapper>

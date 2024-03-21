@@ -35,12 +35,15 @@ public class Store {
 
     private int ReviewCount;
    
-    public Store(int store_seq, String store_name, int category_seq, int AverageRating, int ReviewCount){
+    private String ImageFilename;
+
+    public Store(int store_seq, String store_name, int category_seq, int AverageRating, int ReviewCount,String ImageFilename){
         this.store_seq = store_seq;
         this.store_name = store_name;
         this.category_seq = category_seq;
         this.AverageRating = AverageRating;
         this.ReviewCount = ReviewCount;
+        this.ImageFilename = ImageFilename;
     }
 
 
