@@ -59,7 +59,7 @@ JOIN
 WHERE
     o.user_id = #{id}
 GROUP BY
-    o.order_num, s.store_name, o.total_amount, o.order_at
+    o.order_num, s.store_name, o.total_amount, DATE_FORMAT(order_at, '%Y-%m-%d')
 LIMIT 0, 1000
 </select>
 
