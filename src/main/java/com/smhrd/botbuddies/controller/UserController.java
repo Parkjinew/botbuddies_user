@@ -5,11 +5,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.User;
 import com.smhrd.botbuddies.mapper.UserMapper;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -55,4 +59,15 @@ public class UserController {
         return userInfo;
     }
 
+
+    @RequestMapping("/orderlist")
+    public List<Order> orderlist(@RequestBody Map<String,String> requestData) {
+       String id = requestData.get("id");
+       System.out.println(id);
+       List<Order> OrderList = mapper.orderlist(id);
+       System.out.println("확인"+OrderList);
+       
+        return OrderList;
+    }
+    
 }
