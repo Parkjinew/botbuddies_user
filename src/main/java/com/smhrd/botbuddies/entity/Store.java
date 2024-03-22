@@ -54,6 +54,10 @@ public class Store {
         ImageFilename = imageFilename;
     }
 
+    public Store(String store_name) {
+        this.store_name = store_name;
+    }
+
     
     
 

@@ -39,4 +39,6 @@ public interface StoreMapper {
 
     // 줄서기 정보 
     public Tabling waitInfo(String user_id);
+
+    public Store getStore(String store_seq);
 }

@@ -151,12 +151,14 @@ public class StoreController {
         int people_num = Integer.parseInt(requestData.get("people_num"));
 
         System.out.println(store_seq);
-        
+
         int count = mapper.waitCount(store_seq);
 
         mapper.wait(user_id, store_seq, count, people_num); 
 
         Tabling waitinfo = mapper.waitInfo(user_id);
+
+        count = mapper.waitCount(store_seq);
 
         Tabling wait = new Tabling(waitinfo.getTabling_seq(), waitinfo.getStore_seq(), waitinfo.getUser_id(), waitinfo.getWait_num(), waitinfo.getState(), waitinfo.getPeople_num(), waitinfo.getCreate_at(), count);
 
@@ -183,6 +185,17 @@ public class StoreController {
 
 
         return wait;
+         
+    }
+
+    @RequestMapping("/getStoreName")
+    public Store getStoreName(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String store_seq = requestData.get("store_seq");
+
+        Store store = mapper.getStore(store_seq);
+
+        return store;
          
     }
 
