@@ -60,7 +60,33 @@ WHERE
     o.user_id = #{id}
 GROUP BY
     o.order_num, s.store_name, o.total_amount, DATE_FORMAT(order_at, '%Y-%m-%d')
+ORDER BY
+    DATE_FORMAT(order_at, '%Y-%m-%d')
 LIMIT 0, 1000
+
+
 </select>
+
+<select id="storeSeq">
+ SELECT store_seq FROM STORES WHERE store_name = #{storeName}
+</select>
+
+<insert id="reviewWrite">
+    INSERT INTO REVIEWS (user_id, store_seq, score, title, details)
+    VALUES (#{id}, #{storeSeq}, #{rating}, #{reviewTitle}, #{reviewText})
+</insert>
+
+<select id="reviewSeq" resultType="Integer">
+ SELECT review_seq FROM REVIEWS WHERE  user_id = #{id} AND 
+    title = #{reviewTitle} AND
+    details = #{reviewText} AND 
+    store_seq = #{storeSeq} 
+</select>
+
+<insert id="reviewImg" parameterType="map">
+    INSERT INTO REVIEW_IMG (review_seq, img_filename)
+       VALUES (#{review_seq}, #{photos})
+      
+</insert>
 
 </mapper>
