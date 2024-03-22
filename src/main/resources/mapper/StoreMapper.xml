@@ -58,4 +58,8 @@ select * from TABLING where user_id=#{user_id} and state='0'
 select store_name from STORES where store_seq=#{store_seq}
 </select>
 
+<update id="waitDel">
+update TABLING set state='2' where tabling_seq=#{tabling_seq}
+</update>
+
 </mapper>

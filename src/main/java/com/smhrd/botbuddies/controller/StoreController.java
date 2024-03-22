@@ -176,12 +176,21 @@ public class StoreController {
         System.out.println(user_id);
 
         Tabling waitinfo = mapper.waitInfo(user_id);
+        
+        String store_seq = null;
 
-        String store_seq = waitinfo.getStore_seq()+"";
+        if(waitinfo != null){
+            store_seq = waitinfo.getStore_seq()+"";
+        }
+        
 
         int count = mapper.waitCount(store_seq);
 
-        Tabling wait = new Tabling(waitinfo.getTabling_seq(), waitinfo.getStore_seq(), waitinfo.getUser_id(), waitinfo.getWait_num(), waitinfo.getState(), waitinfo.getPeople_num(), waitinfo.getCreate_at(), count);
+        Tabling wait = null;
+
+        if(waitinfo != null){
+            wait = new Tabling(waitinfo.getTabling_seq(), waitinfo.getStore_seq(), waitinfo.getUser_id(), waitinfo.getWait_num(), waitinfo.getState(), waitinfo.getPeople_num(), waitinfo.getCreate_at(), count);
+        }
 
 
         return wait;
@@ -194,11 +203,23 @@ public class StoreController {
         String store_seq = requestData.get("store_seq");
 
         Store store = mapper.getStore(store_seq);
-        System.out.println(store.toString());
 
         return store;
          
     }
+
+    @RequestMapping("/waitDelet")
+    public void waitDelet(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String tabling_seq = requestData.get("tabling_seq");
+
+       mapper.waitDel(tabling_seq);
+
+        
+         
+    }
+
+
 
 
 

@@ -41,4 +41,6 @@ public interface StoreMapper {
     public Tabling waitInfo(String user_id);
 
     public Store getStore(String store_seq);
+
+    public void waitDel(String tabling_seq);
 }
