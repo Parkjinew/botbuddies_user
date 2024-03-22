@@ -43,7 +43,8 @@ SELECT
     o.order_num,
 	o.total_amount,
     GROUP_CONCAT(DISTINCT m.menu_name) AS menu_names,
-    GROUP_CONCAT(DISTINCT si.img_filename) AS image_filenames
+    GROUP_CONCAT(DISTINCT si.img_filename) AS image_filenames,
+    GROUP_CONCAT(DISTINCT r.review_seq) AS review_seq
 FROM
     ORDERS o
 JOIN
@@ -52,6 +53,8 @@ JOIN
     STORES s ON o.store_seq = s.store_seq
 JOIN
     STORE_IMG si ON s.store_seq = si.store_seq
+    LEFT JOIN
+    REVIEWS r ON s.store_seq = r.store_seq AND o.user_id = r.user_id
 WHERE
     o.user_id = #{id}
 GROUP BY
