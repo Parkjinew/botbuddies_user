@@ -27,15 +27,19 @@ public class User {
     private String joined_at;
     private String store_name;
     private String store_seq;
+    private String open_time;
+    private String end_time;
     private String category_seq;
     private String AverageRating;
     private String ReviewCount;
     private String STORE_IMG;
     
-    public User(String store_name,String store_seq, String category_seq, String averageRating, String reviewCount, String sTORE_IMG) {
+    public User(String store_name,String store_seq, String category_seq,String open_time, String end_time, String averageRating, String reviewCount, String sTORE_IMG) {
         this.store_name = store_name;
         this.store_seq = store_seq;
         this.category_seq = category_seq;
+        this.open_time = open_time;
+        this.end_time = end_time;
         AverageRating = averageRating;
         ReviewCount = reviewCount;
         STORE_IMG = sTORE_IMG;

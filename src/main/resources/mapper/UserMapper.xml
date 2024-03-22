@@ -14,8 +14,10 @@ select * from USERS where user_id = #{id} and user_pw = MD5(#{password})
 SELECT 
     s.store_name, 
     ANY_VALUE(s.store_seq) AS store_seq, 
-    s.category_seq, 
-    AVG(r.score) AS AverageRating, 
+    s.category_seq,
+    MIN(s.open_time) AS open_time, -- 집계 함수 사용
+    MAX(s.end_time) AS end_time, -- 집계 함수 사용
+    ROUND(AVG(r.score),1) AS AverageRating, 
     COUNT(r.title) AS ReviewCount, 
     ANY_VALUE(mi.img_filename) AS STORE_IMG 
 FROM 
@@ -32,6 +34,7 @@ WHERE
     m.user_id = #{id}
 GROUP BY 
     s.store_name, s.category_seq
+LIMIT 0, 1000
 </select>
 
 
