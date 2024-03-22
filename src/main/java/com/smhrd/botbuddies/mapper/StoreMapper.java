@@ -26,4 +26,6 @@ public interface StoreMapper {
     public List<Store> storeListAllReview();
 
     public List<Store> storeListReview(String id);
+
+    public int waitState(String user_id);
 }
