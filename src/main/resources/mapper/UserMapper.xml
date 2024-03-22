@@ -37,6 +37,26 @@ GROUP BY
 LIMIT 0, 1000
 </select>
 
-
+<select id="orderlist" parameterType="String" resultType="com.smhrd.botbuddies.entity.Order">
+SELECT
+    s.store_name,
+    o.order_num,
+	o.total_amount,
+    GROUP_CONCAT(DISTINCT m.menu_name) AS menu_names,
+    GROUP_CONCAT(DISTINCT si.img_filename) AS image_filenames
+FROM
+    ORDERS o
+JOIN
+    MENUS m ON o.store_seq = m.store_seq
+JOIN
+    STORES s ON o.store_seq = s.store_seq
+JOIN
+    STORE_IMG si ON s.store_seq = si.store_seq
+WHERE
+    o.user_id = #{id}
+GROUP BY
+    o.order_num, s.store_name, o.total_amount
+LIMIT 0, 1000
+</select>
 
 </mapper>
