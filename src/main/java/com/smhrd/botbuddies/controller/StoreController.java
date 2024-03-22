@@ -128,7 +128,18 @@ public class StoreController {
 
         return storeList;
         
+    }
+
+    @RequestMapping("/waitState")
+    public int waitState(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String user_id = requestData.get("user_id");
         
+        System.out.println(user_id);
+
+        int state = mapper.waitState(user_id);
+        
+        return state;
     }
 
 

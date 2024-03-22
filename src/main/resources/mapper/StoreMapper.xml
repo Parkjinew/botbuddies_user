@@ -38,4 +38,8 @@ SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0
 SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by ReviewCount desc
 </select>
 
+<select id="waitState" parameterType="String" resultType="int">
+select count(*) from TABLING where user_id=#{user_id} and state='0'
+</select>
+
 </mapper>
