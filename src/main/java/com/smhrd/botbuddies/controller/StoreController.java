@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.StoreMenu;
+import com.smhrd.botbuddies.entity.Tabling;
 import com.smhrd.botbuddies.mapper.StoreMapper;
 
 
@@ -140,6 +141,27 @@ public class StoreController {
         int state = mapper.waitState(user_id);
         
         return state;
+    }
+
+    @RequestMapping("/wait")
+    public Tabling wait(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String user_id = requestData.get("user_id");
+        String store_seq = requestData.get("store_seq");
+        
+        System.out.println(user_id);
+        System.out.println(store_seq);
+
+        int count = mapper.waitCount(store_seq);
+
+        mapper.wait(user_id, store_seq, count); 
+
+        Tabling waitinfo = mapper.waitInfo(user_id);
+
+
+        return waitinfo;
+        
+        
     }
 
 

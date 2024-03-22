@@ -42,4 +42,16 @@ SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0
 select count(*) from TABLING where user_id=#{user_id} and state='0'
 </select>
 
+<select id="waitCount" resultType="int">
+select count(*) from TABLING where store_seq=#{store_seq} and state='0'
+</select>
+
+<insert id="wait">
+insert into TABLING(store_seq, user_id, wait_num) values (#{store_seq}, #{user_id}, #{wait_num}+1)
+</insert>
+
+<select id="waitInfo" resultType="com.smhrd.botbuddies.entity.Tabling">
+select * from TABLING where user_id=#{user_id} and state='0'
+</select>
+
 </mapper>
