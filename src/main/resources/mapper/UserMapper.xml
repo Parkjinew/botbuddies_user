@@ -6,7 +6,7 @@ select * from USERS
 </select>
 
 <select id="signin" parameterType='String' resultType="com.smhrd.botbuddies.entity.User">
-select * from USERS where user_id = #{id} and user_pw = MD5(#{password})
+select * from USERS where user_id = #{id} and user_pw = MD5(#{password}) and user_role='2'
 </select>
 
 

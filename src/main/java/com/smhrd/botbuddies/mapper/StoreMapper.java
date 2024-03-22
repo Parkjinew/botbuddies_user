@@ -32,11 +32,13 @@ public interface StoreMapper {
     public int waitState(String user_id);
 
     // 줄서기 신청
-    public int wait(String user_id, String store_seq, int Count);
+    public int wait(String user_id, String store_seq, int Count , int people_num);
 
     // 현재 매장에 줄서고 있는 수
     public int waitCount(String store_seq);
 
     // 줄서기 정보 
     public Tabling waitInfo(String user_id);
+
+    public Store getStore(String store_seq);
 }

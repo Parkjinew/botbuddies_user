@@ -47,11 +47,15 @@ select count(*) from TABLING where store_seq=#{store_seq} and state='0'
 </select>
 
 <insert id="wait">
-insert into TABLING(store_seq, user_id, wait_num) values (#{store_seq}, #{user_id}, #{wait_num}+1)
+insert into TABLING(store_seq, user_id, wait_num, people_num) values (#{store_seq}, #{user_id}, #{Count}+1, #{people_num})
 </insert>
 
 <select id="waitInfo" resultType="com.smhrd.botbuddies.entity.Tabling">
 select * from TABLING where user_id=#{user_id} and state='0'
+</select>
+
+<select id="getStore" resultType="com.smhrd.botbuddies.entity.Store">
+select store_name from STORES where store_seq=#{store_seq}
 </select>
 
 </mapper>
