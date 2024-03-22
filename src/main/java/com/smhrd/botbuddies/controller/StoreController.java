@@ -194,6 +194,7 @@ public class StoreController {
         String store_seq = requestData.get("store_seq");
 
         Store store = mapper.getStore(store_seq);
+        System.out.println(store.toString());
 
         return store;
          
