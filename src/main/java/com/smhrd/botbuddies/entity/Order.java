@@ -24,19 +24,20 @@ public class Order {
     private int pay_amount;
     private int paid_amount;
     private int pay_method;
-    private int order_at;
+    private String order_at;
     private String store_name;
     private String menu_names;
     private String image_filenames;
     private int review_seq;
 
-    public Order(String store_name, int order_num, int total_amount, String menu_names, String image_filenames, int review_seq) {
+    public Order(String store_name, int order_num, int total_amount, String menu_names, String image_filenames, int review_seq, String order_at) {
         this.order_num = order_num;
         this.total_amount = total_amount;
         this.store_name = store_name;
         this.menu_names = menu_names;
         this.image_filenames = image_filenames;
         this.review_seq = review_seq;
+        this.order_at = order_at;
     }
 
     

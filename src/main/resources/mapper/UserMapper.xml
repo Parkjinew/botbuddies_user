@@ -44,7 +44,8 @@ SELECT
 	o.total_amount,
     GROUP_CONCAT(DISTINCT m.menu_name) AS menu_names,
     GROUP_CONCAT(DISTINCT si.img_filename) AS image_filenames,
-    GROUP_CONCAT(DISTINCT r.review_seq) AS review_seq
+    GROUP_CONCAT(DISTINCT r.review_seq) AS review_seq,
+    DATE_FORMAT(order_at, '%Y-%m-%d') AS order_at
 FROM
     ORDERS o
 JOIN
@@ -58,7 +59,7 @@ JOIN
 WHERE
     o.user_id = #{id}
 GROUP BY
-    o.order_num, s.store_name, o.total_amount
+    o.order_num, s.store_name, o.total_amount, o.order_at
 LIMIT 0, 1000
 </select>
 
