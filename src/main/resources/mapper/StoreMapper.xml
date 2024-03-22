@@ -62,4 +62,28 @@ select store_name from STORES where store_seq=#{store_seq}
 update TABLING set state='2' where tabling_seq=#{tabling_seq}
 </update>
 
+<select id="getTable" resultType="com.smhrd.botbuddies.entity.Table">
+select table_num from STORE_TABLE where store_seq = #{store_seq} and table_state='1' group by table_num
+</select>
+
+<select id="getOrderNum" resultType="Integer">
+SELECT COUNT(DISTINCT order_num) AS order_count
+FROM 
+    ORDERS
+GROUP BY 
+    store_seq, 
+    DATE_FORMAT(order_at, '%Y-%m-%d')
+Having store_seq=#{store_seq}
+
+</select>
+
+<select id="getAmount">
+select price from MENUS where menu_seq=#{menu_seq}
+</select>
+
+<insert id="orderInsert">
+insert into ORDERS(store_seq, user_id,menu_seq,order_num, quantity, total_amount, discount_amount, pay_amount, paid_amount, pay_method) values(#{store_seq}, #{user_id}, #{menu_seq}, #{i}, #{quantity}, #{totalAmount}, #{j}, #{pay_amount}, #{totalAmount}, #{method})
+
+</insert>
+
 </mapper>

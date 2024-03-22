@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Menu;
+import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.StoreMenu;
+import com.smhrd.botbuddies.entity.Table;
 import com.smhrd.botbuddies.entity.Tabling;
 import com.smhrd.botbuddies.mapper.StoreMapper;
 
@@ -229,6 +231,54 @@ public class StoreController {
         return count;
          
     }
+
+    @RequestMapping("/getTable")
+    public List<Table> getTable(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String store_seq = requestData.get("store_seq");
+
+        List<Table> tableList = mapper.getTable(store_seq);
+
+        return tableList;
+         
+    }
+
+    @RequestMapping("/payment")
+    public void payment(@RequestBody StoreMenu requestData) {
+        System.out.println("들어왔음");
+        int store_seq = requestData.getStore_seq();
+        String user_id = requestData.getUser_id();
+        List<Order> orderDetails = requestData.getOrders();
+
+        System.out.println(store_seq);
+        System.out.println(user_id);
+        
+        System.out.println(orderDetails.get(0).toString());
+
+        Integer result = mapper.getOrderNum(store_seq);
+
+        int num = (result != null) ? result : 0;
+
+        System.out.println(num);
+
+        int totalAmount = 0;
+
+        for(Order order : orderDetails){
+            int amount = mapper.getAmount(order.getMenu_seq());
+            totalAmount+= amount*order.getQuantity();
+        }
+        for(Order order : orderDetails){
+            int amount = mapper.getAmount(order.getMenu_seq());
+            int pay_amount = amount*order.getQuantity();
+            mapper.orderInsert(store_seq, user_id, order.getMenu_seq(), num+1, order.getQuantity(),totalAmount, 0, pay_amount, totalAmount, "card");
+            
+
+        }
+
+
+  
+    }
+
 
 
 
