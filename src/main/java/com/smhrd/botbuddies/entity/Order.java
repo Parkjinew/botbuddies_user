@@ -1,5 +1,7 @@
 package com.smhrd.botbuddies.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +40,12 @@ public class Order {
         this.image_filenames = image_filenames;
         this.review_seq = review_seq;
         this.order_at = order_at;
+    }
+
+    @JsonCreator
+    public Order(int menu_seq, int quantity) {
+        this.menu_seq = menu_seq;
+        this.quantity = quantity;
     }
 
     

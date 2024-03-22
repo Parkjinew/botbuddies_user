@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Store;
+import com.smhrd.botbuddies.entity.Table;
 import com.smhrd.botbuddies.entity.Tabling;
 
 @Mapper
@@ -43,4 +44,13 @@ public interface StoreMapper {
     public Store getStore(String store_seq);
 
     public void waitDel(String tabling_seq);
+
+    public List<Table> getTable(String store_seq);
+
+    public Integer getOrderNum(int store_seq);
+
+    public int getAmount(int menu_seq);
+
+    public void orderInsert(int store_seq, String user_id, int menu_seq, int i, int quantity, int totalAmount, int j,
+            int pay_amount, int totalAmount2, String method);
 }
