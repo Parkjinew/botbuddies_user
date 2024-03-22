@@ -40,6 +40,7 @@ LIMIT 0, 1000
 <select id="orderlist" parameterType="String" resultType="com.smhrd.botbuddies.entity.Order">
 SELECT
     s.store_name,
+    o.store_seq,
     o.order_num,
 	o.total_amount,
     GROUP_CONCAT(DISTINCT m.menu_name) AS menu_names,
@@ -59,7 +60,7 @@ JOIN
 WHERE
     o.user_id = #{id}
 GROUP BY
-    o.order_num, s.store_name, o.total_amount, DATE_FORMAT(order_at, '%Y-%m-%d')
+    o.order_num, s.store_name, o.total_amount, o.store_seq, DATE_FORMAT(order_at, '%Y-%m-%d')
 ORDER BY
     DATE_FORMAT(order_at, '%Y-%m-%d')
 LIMIT 0, 1000
