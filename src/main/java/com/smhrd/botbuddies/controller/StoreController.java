@@ -219,6 +219,17 @@ public class StoreController {
          
     }
 
+    @RequestMapping("/getCount")
+    public int getCount(@RequestBody Map<String, String> requestData) {
+        System.out.println("들어왔음");
+        String store_seq = requestData.get("store_seq");
+
+        int count = mapper.waitCount(store_seq);
+
+        return count;
+         
+    }
+
 
 
 
