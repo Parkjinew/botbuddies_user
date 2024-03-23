@@ -53,4 +53,10 @@ public interface StoreMapper {
 
     public void orderInsert(int store_seq, String user_id, int menu_seq, int i, int quantity, int totalAmount, int j,
             int pay_amount, int totalAmount2, String method);
+
+    public List<Table> getTableList(int store_seq, int selectedTable);
+
+    public void selectTable(int table_seq);
+
+    
 }

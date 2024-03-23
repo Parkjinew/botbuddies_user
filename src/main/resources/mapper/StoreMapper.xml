@@ -81,4 +81,12 @@ insert into ORDERS(store_seq, user_id,menu_seq,order_num, quantity, total_amount
 
 </insert>
 
+<select id="getTableList" resultType="com.smhrd.botbuddies.entity.Table">
+select * from STORE_TABLE where store_seq = #{store_seq} and table_num = #{selectedTable} and table_state='1'
+</select>
+
+<update id="selectTable">
+update STORE_TABLE set table_state='0' where table_seq=#{table_seq}
+</update>
+
 </mapper>

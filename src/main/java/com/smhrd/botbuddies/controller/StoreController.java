@@ -249,11 +249,13 @@ public class StoreController {
         int store_seq = requestData.getStore_seq();
         String user_id = requestData.getUser_id();
         List<Order> orderDetails = requestData.getOrders();
+        int selectedTable = requestData.getSelectedTable();
 
         System.out.println(store_seq);
         System.out.println(user_id);
         
         System.out.println(orderDetails.get(0).toString());
+        System.out.println(selectedTable);
 
         Integer result = mapper.getOrderNum(store_seq);
 
@@ -262,6 +264,12 @@ public class StoreController {
         System.out.println(num);
 
         int totalAmount = 0;
+
+       List<Table> selectTable =  mapper.getTableList(store_seq, selectedTable);
+       System.out.println(selectTable.get(0).toString());
+
+       int table_seq = selectTable.get(0).getTable_seq();
+       mapper.selectTable(table_seq);
 
         for(Order order : orderDetails){
             int amount = mapper.getAmount(order.getMenu_seq());

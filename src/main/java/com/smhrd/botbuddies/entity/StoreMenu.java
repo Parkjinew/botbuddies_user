@@ -21,15 +21,17 @@ public class StoreMenu {
     private int store_seq;
     private String user_id;
     private List<Order> orders;
+    private int selectedTable;
 
     
     
 
     @JsonCreator
-    public StoreMenu(int store_seq, String user_id, List<Order> orders) {
+    public StoreMenu(int store_seq, String user_id, List<Order> orders, int selectedTable) {
         this.store_seq = store_seq;
         this.user_id = user_id;
         this.orders = orders;
+        this.selectedTable = selectedTable;
     }
 
 
