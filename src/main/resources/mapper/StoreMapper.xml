@@ -70,11 +70,6 @@ select table_num from STORE_TABLE where store_seq = #{store_seq} and table_state
 SELECT COUNT(DISTINCT order_num) AS order_count
 FROM 
     ORDERS
-GROUP BY 
-    store_seq, 
-    DATE_FORMAT(order_at, '%Y-%m-%d')
-Having store_seq=#{store_seq}
-
 </select>
 
 <select id="getAmount">
