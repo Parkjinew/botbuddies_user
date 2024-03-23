@@ -17,4 +17,9 @@ public interface UserMapper {
     public List<User> favorite(String id);
 
     public List<Order> orderlist(String id);
+
+    public String storeSeq(String storeName);
+    public void reviewWrite(String id,String storeSeq,int rating,String reviewTitle, String reviewText);
+    public Integer reviewSeq(String id,String storeSeq,String reviewTitle,String reviewText);
+    public void reviewImg(int review_seq, String photos);
 }

@@ -1,11 +1,14 @@
 package com.smhrd.botbuddies.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Order;
+import com.smhrd.botbuddies.entity.Review;
+import com.smhrd.botbuddies.entity.ReviewRequest;
 import com.smhrd.botbuddies.entity.User;
 import com.smhrd.botbuddies.mapper.UserMapper;
 
@@ -68,6 +71,35 @@ public class UserController {
        System.out.println("확인"+OrderList);
        
         return OrderList;
+    }
+    
+
+
+    @RequestMapping("/reviewWrite")
+    public void reviewWrite(@RequestBody ReviewRequest requestData) {
+        String id = requestData.getId();
+        String storeName = requestData.getStoreName();
+        int rating = requestData.getRating();
+        List<String> photos = requestData.getPhotos();
+        String reviewText = requestData.getReviewText();
+        String reviewTitle = requestData.getReviewTitle();
+        System.out.println(id);
+        System.out.println(storeName);
+        System.out.println(rating);
+        System.out.println(reviewText);
+        System.out.println(reviewTitle);
+        System.out.println(photos);
+        String storeSeq = mapper.storeSeq(storeName);
+        System.out.println(storeSeq);
+       
+        mapper.reviewWrite(id, storeSeq, rating,reviewTitle,reviewText);
+        Integer review_seq = mapper.reviewSeq(id, storeSeq, reviewTitle, reviewText);
+        System.out.println(review_seq);
+        for(String i : photos){
+            mapper.reviewImg(review_seq,i);
+        }
+        
+
     }
     
 }

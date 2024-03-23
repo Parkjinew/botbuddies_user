@@ -32,10 +32,11 @@ public class Order {
     private String image_filenames;
     private int review_seq;
 
-    public Order(String store_name, int order_num, int total_amount, String menu_names, String image_filenames, int review_seq, String order_at) {
+    public Order(String store_name, int store_seq, int order_num, int total_amount, String menu_names, String image_filenames, int review_seq, String order_at) {
         this.order_num = order_num;
         this.total_amount = total_amount;
         this.store_name = store_name;
+        this.store_seq = store_seq;
         this.menu_names = menu_names;
         this.image_filenames = image_filenames;
         this.review_seq = review_seq;
