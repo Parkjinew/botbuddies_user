@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.botbuddies.mapper.StoreMapper">
 <select id="storeListAll" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where open_state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename
 </select>
 
 <select id="storeList" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and open_state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
 </select>
 
 <select id="searchResult" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
@@ -15,7 +15,7 @@ SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0
 
 
 <select id="storeInfo" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.user_id, S.store_name, S.STORE_ADDR, S.store_phone, S.CATEGORY_SEQ, S.STORE_DESC, S.TABLING_STATE, S.STATE, S.open_time, S.end_time,  ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename , count(ST.TABLE_SEQ) as tableCount FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq LEFT JOIN STORE_TABLE ST on S.store_seq = ST.STORE_SEQ WHERE S.store_seq=#{id} GROUP BY S.store_seq, SI.img_filename
+SELECT S.store_seq, S.user_id, S.store_name, S.STORE_ADDR, S.store_phone, S.CATEGORY_SEQ, S.STORE_DESC, S.TABLING_STATE, S.STATE, S.open_time, S.end_time, S.open_state,  ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename , count(ST.TABLE_SEQ) as tableCount FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq LEFT JOIN STORE_TABLE ST on S.store_seq = ST.STORE_SEQ WHERE S.store_seq=#{id} GROUP BY S.store_seq, SI.img_filename
 </select>
 
 <select id="menuList" parameterType="String" resultType="com.smhrd.botbuddies.entity.Menu">
@@ -88,5 +88,19 @@ select * from STORE_TABLE where store_seq = #{store_seq} and table_num = #{selec
 <update id="selectTable">
 update STORE_TABLE set table_state='0' where table_seq=#{table_seq}
 </update>
+
+<insert id="reservation">
+insert into RESERVATIONS(user_id, store_seq, reserve_name, reserve_date, reserve_time, reserve_num) values (#{user_id}, #{store_seq}, #{reserve_name}, #{reserve_date}, #{reserve_time}, #{reserve_num})
+</insert>
+
+<delete id="cancelReserve">
+delete from RESERVATIONS
+where user_id=#{user_id}
+and store_seq=#{store_seq}
+and reserve_name=#{reserve_name}
+and reserve_date=#{reserve_date}
+and reserve_time=#{reserve_time}
+and reserve_num=#{reserve_num}
+</delete >
 
 </mapper>

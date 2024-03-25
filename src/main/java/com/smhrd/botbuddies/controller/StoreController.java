@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Order;
+import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.StoreMenu;
 import com.smhrd.botbuddies.entity.Table;
@@ -283,9 +284,38 @@ public class StoreController {
 
         }
 
-
-  
     }
+
+    @RequestMapping("/reservation")
+    public void reservation(@RequestBody Reservation requestData) {
+        
+        String user_id = requestData.getUser_id();
+        int store_seq = requestData.getStore_seq();
+        String reserve_name = requestData.getReserve_name();
+        String reserve_date = requestData.getReserve_date();
+        String reserve_time = requestData.getReserve_time();
+        int reserve_num = requestData.getReserve_num();
+
+        mapper.reservation(user_id, store_seq, reserve_name, reserve_date, reserve_time, reserve_num);
+        
+    }
+   
+    @RequestMapping("/cancelReserve")
+    public void cancelReserve(@RequestBody Reservation requestData) {
+        
+        String user_id = requestData.getUser_id();
+        int store_seq = requestData.getStore_seq();
+        String reserve_name = requestData.getReserve_name();
+        String reserve_date = requestData.getReserve_date();
+        String reserve_time = requestData.getReserve_time();
+        int reserve_num = requestData.getReserve_num();
+
+        System.out.println(requestData.toString());
+
+        mapper.cancelReserve(user_id, store_seq, reserve_name, reserve_date, reserve_time, reserve_num);
+        
+    }
+    
 
 
 

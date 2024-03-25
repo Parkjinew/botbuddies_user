@@ -58,5 +58,11 @@ public interface StoreMapper {
 
     public void selectTable(int table_seq);
 
+    public void reservation(String user_id, int store_seq, String reserve_name, String reserve_date,
+            String reserve_time, int reserve_num);
+
+    public void cancelReserve(String user_id, int store_seq, String reserve_name, String reserve_date,
+            String reserve_time, int reserve_num);
+
     
 }
