@@ -15,7 +15,35 @@ SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0
 
 
 <select id="storeInfo" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.user_id, S.store_name, S.STORE_ADDR, S.store_phone, S.CATEGORY_SEQ, S.STORE_DESC, S.TABLING_STATE, S.STATE, S.open_time, S.end_time, S.open_state,  ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename , count(ST.TABLE_SEQ) as tableCount FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq LEFT JOIN STORE_TABLE ST on S.store_seq = ST.STORE_SEQ WHERE S.store_seq=#{id} GROUP BY S.store_seq, SI.img_filename
+SELECT 
+    S.store_seq, 
+    S.user_id, 
+    S.store_name, 
+    S.STORE_ADDR, 
+    S.store_phone, 
+    S.CATEGORY_SEQ, 
+    S.STORE_DESC, 
+    S.TABLING_STATE, 
+    S.STATE, 
+    S.open_time, 
+    S.end_time, 
+    S.open_state,  
+    ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, 
+    COUNT(DISTINCT R.review_seq) AS ReviewCount, 
+    GROUP_CONCAT(DISTINCT SI.img_filename) AS ImageFilenames, 
+    COUNT(DISTINCT ST.TABLE_SEQ) as TableCount 
+FROM 
+    STORES S 
+LEFT JOIN 
+    REVIEWS R ON S.store_seq = R.store_seq 
+LEFT JOIN 
+    STORE_IMG SI ON S.store_seq = SI.store_seq 
+LEFT JOIN 
+    STORE_TABLE ST on S.store_seq = ST.STORE_SEQ 
+WHERE 
+    S.store_seq = #{store_seq}
+GROUP BY 
+    S.store_seq
 </select>
 
 <select id="menuList" parameterType="String" resultType="com.smhrd.botbuddies.entity.Menu">
@@ -105,6 +133,14 @@ and reserve_num=#{reserve_num}
 
 <select id="getReser" resultType="com.smhrd.botbuddies.entity.Reservation">
 select * from RESERVATIONS where store_seq = #{store_seq}
+</select>
+
+<select id="storeReview" resultType="com.smhrd.botbuddies.entity.Review">
+select * from REVIEWS where store_seq = #{store_seq}
+</select>
+
+<select id="reviewImgGet" resultType="com.smhrd.botbuddies.entity.ReviewImg">
+select * from REVIEW_IMG where review_seq=#{review_seq}
 </select>
 
 </mapper>

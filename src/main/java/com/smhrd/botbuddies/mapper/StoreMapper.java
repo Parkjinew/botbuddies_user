@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Reservation;
+import com.smhrd.botbuddies.entity.Review;
+import com.smhrd.botbuddies.entity.ReviewImg;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.Table;
 import com.smhrd.botbuddies.entity.Tabling;
@@ -66,6 +68,10 @@ public interface StoreMapper {
             String reserve_time, int reserve_num);
 
     public List<Reservation> getReser(String store_seq);
+
+    public List<Review> storeReview(String store_seq);
+
+    public List<ReviewImg> reviewImgGet(int review_seq);
 
     
 }
