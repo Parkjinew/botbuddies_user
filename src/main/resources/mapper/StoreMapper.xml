@@ -136,7 +136,7 @@ select * from RESERVATIONS where store_seq = #{store_seq}
 </select>
 
 <select id="storeReview" resultType="com.smhrd.botbuddies.entity.Review">
-select * from REVIEWS where store_seq = #{store_seq}
+select * from REVIEWS where store_seq = #{store_seq} order by create_at desc
 </select>
 
 <select id="reviewImgGet" resultType="com.smhrd.botbuddies.entity.ReviewImg">

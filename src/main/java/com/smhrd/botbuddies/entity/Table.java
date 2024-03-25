@@ -18,6 +18,10 @@ public class Table {
     public Table(int table_num) {
         this.table_num = table_num;
     }
+    public Table(int table_num, String table_state) {
+        this.table_num = table_num;
+        this.table_state = table_state;
+    }
     
     
     
