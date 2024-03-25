@@ -59,6 +59,18 @@ public class Store {
         this.store_name = store_name;
     }
 
+    public Store(int store_seq, String store_name, int category_seq,  int averageRating,
+            int reviewCount, String store_desc, String imageFilename, String open_state) {
+        this.store_seq = store_seq;
+        this.store_name = store_name;
+        this.category_seq = category_seq;
+        this.store_desc = store_desc;
+        AverageRating = averageRating;
+        ReviewCount = reviewCount;
+        ImageFilename = imageFilename;
+        this.open_state = open_state;
+    }
+
     
     
 

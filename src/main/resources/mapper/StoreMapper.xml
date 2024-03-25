@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.botbuddies.mapper.StoreMapper">
 <select id="storeListAll" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by S.open_state desc
 </select>
 
 <select id="storeList" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by S.open_state desc
 </select>
 
 <select id="searchResult" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
@@ -23,19 +23,19 @@ select * from MENUS where store_seq=#{id} and menu_state='1'
 </select>
 
 <select id="storeListAllScore" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by AverageRating desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by AverageRating desc
 </select>
 
 <select id="storeListScore" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by AverageRating desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by AverageRating desc
 </select>
 
 <select id="storeListAllReview" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by ReviewCount desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by ReviewCount desc
 </select>
 
 <select id="storeListReview" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by ReviewCount desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by ReviewCount desc
 </select>
 
 <select id="waitState" parameterType="String" resultType="int">
@@ -102,5 +102,9 @@ and reserve_date=#{reserve_date}
 and reserve_time=#{reserve_time}
 and reserve_num=#{reserve_num}
 </delete >
+
+<select id="getReser" resultType="com.smhrd.botbuddies.entity.Reservation">
+select * from RESERVATIONS where store_seq = #{store_seq}
+</select>
 
 </mapper>

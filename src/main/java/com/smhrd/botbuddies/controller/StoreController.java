@@ -315,6 +315,20 @@ public class StoreController {
         mapper.cancelReserve(user_id, store_seq, reserve_name, reserve_date, reserve_time, reserve_num);
         
     }
+
+
+    @RequestMapping("/getReserv")
+    public List<Reservation> getReserv(@RequestBody Map<String, String> requestData) {
+        
+        String store_seq = requestData.get("store_seq");
+
+        System.out.println(store_seq);
+
+        List<Reservation> reservInfo = mapper.getReser(store_seq);
+
+        return reservInfo;
+        
+    }
     
 
 
