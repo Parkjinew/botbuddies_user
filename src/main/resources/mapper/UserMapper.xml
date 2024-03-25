@@ -56,7 +56,7 @@ JOIN
 JOIN
     STORE_IMG si ON s.store_seq = si.store_seq
     LEFT JOIN
-    REVIEWS r ON s.store_seq = r.store_seq AND o.user_id = r.user_id
+    REVIEWS r ON s.store_seq = r.store_seq AND o.order_num = r.order_num
 WHERE
     o.user_id = #{id}
 GROUP BY
@@ -72,13 +72,17 @@ LIMIT 0, 1000
  SELECT store_seq FROM STORES WHERE store_name = #{storeName}
 </select>
 
+<select id="userNick">
+select user_nick from USERS where user_id = #{id}
+</select>
+
 <insert id="reviewWrite">
-    INSERT INTO REVIEWS (user_id, store_seq, score, title, details)
-    VALUES (#{id}, #{storeSeq}, #{rating}, #{reviewTitle}, #{reviewText})
+    INSERT INTO REVIEWS (user_id, store_seq, order_num, score, title, details)
+    VALUES (#{nick}, #{storeSeq},#{orderNum}, #{rating}, #{reviewTitle}, #{reviewText})
 </insert>
 
 <select id="reviewSeq" resultType="Integer">
- SELECT review_seq FROM REVIEWS WHERE  user_id = #{id} AND 
+ SELECT review_seq FROM REVIEWS WHERE  user_id = #{nick} AND 
     title = #{reviewTitle} AND
     details = #{reviewText} AND 
     store_seq = #{storeSeq} 
