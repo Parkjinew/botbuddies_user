@@ -57,9 +57,7 @@ public class StoreController {
         String searchQuery = requestData.get("searchQuery");
         List<Store> storeList = null;
         storeList = mapper.searchResult(searchQuery);
-        for(Store i : storeList){
-            System.out.println(i.toString());
-        }
+       System.out.println(storeList);
 
         return storeList;
 

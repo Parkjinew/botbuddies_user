@@ -10,7 +10,7 @@ SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0
 </select>
 
 <select id="searchResult" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.store_name LIKE CONCAT('%' , #{searchQuery} , '%') and now() &gt;= S.open_time and now() &lt;= S.end_time GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount, SI.img_filename AS ImageFilename FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.store_name LIKE CONCAT('%' , #{searchQuery} , '%') GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename
 </select>
 
 
