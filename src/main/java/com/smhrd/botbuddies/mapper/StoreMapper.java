@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.botbuddies.entity.Menu;
+import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.Table;
 import com.smhrd.botbuddies.entity.Tabling;
@@ -57,6 +58,14 @@ public interface StoreMapper {
     public List<Table> getTableList(int store_seq, int selectedTable);
 
     public void selectTable(int table_seq);
+
+    public void reservation(String user_id, int store_seq, String reserve_name, String reserve_date,
+            String reserve_time, int reserve_num);
+
+    public void cancelReserve(String user_id, int store_seq, String reserve_name, String reserve_date,
+            String reserve_time, int reserve_num);
+
+    public List<Reservation> getReser(String store_seq);
 
     
 }
