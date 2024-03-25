@@ -1,6 +1,7 @@
 package com.smhrd.botbuddies.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -116,4 +117,13 @@ public class UserController {
         return ReviewModify;
     }
     
+
+    @RequestMapping("/reviewDelete")
+public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requestData) {
+    String review_seq = requestData.get("reviewSeq");
+    System.out.println("확인이요---------------------------" + review_seq);
+    mapper.deleteImg(review_seq);
+    mapper.reviewDelete(review_seq);
+    return ResponseEntity.ok("리뷰가 삭제되었습니다."); // 성공 메시지 반환
+}
 }

@@ -120,4 +120,10 @@ GROUP BY
     RV.review_seq, RV.user_id, RV.store_seq, RV.title, RV.details, RV.score, ST.store_name,  RV.create_at
 </select>
 
+<delete id="deleteImg">
+     DELETE FROM REVIEW_IMG WHERE review_seq = #{review_seq}
+</delete>
+<delete id="reviewDelete">
+     DELETE FROM REVIEWS WHERE review_seq = #{review_seq}
+</delete>
 </mapper>

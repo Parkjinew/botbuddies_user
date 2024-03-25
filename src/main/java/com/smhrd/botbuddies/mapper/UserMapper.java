@@ -25,4 +25,6 @@ public interface UserMapper {
     public Integer reviewSeq(String nick,String storeSeq,String reviewTitle,String reviewText);
     public void reviewImg(int review_seq, String photos);
     public List<ReviewMa> reviewModify(String id);
+    public void deleteImg(String review_seq);
+    public void reviewDelete(String review_seq);
 }
