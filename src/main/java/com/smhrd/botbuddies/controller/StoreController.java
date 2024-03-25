@@ -2,6 +2,7 @@ package com.smhrd.botbuddies.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.botbuddies.entity.Menu;
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
+import com.smhrd.botbuddies.entity.Review;
+import com.smhrd.botbuddies.entity.ReviewImg;
+import com.smhrd.botbuddies.entity.ReviewImgList;
 import com.smhrd.botbuddies.entity.Store;
 import com.smhrd.botbuddies.entity.StoreMenu;
 import com.smhrd.botbuddies.entity.Table;
@@ -327,6 +331,29 @@ public class StoreController {
         List<Reservation> reservInfo = mapper.getReser(store_seq);
 
         return reservInfo;
+        
+    }
+
+    @RequestMapping("/reviewPage")
+    public ArrayList<ReviewImgList> reviewPage(@RequestBody Map<String, String> requestData) {
+        
+        String store_seq = requestData.get("store_seq");
+
+        System.out.println(store_seq);
+
+        List<Review> reviewList = mapper.storeReview(store_seq);
+        
+        // List<ReviewImgList> reviewImgList = new List<ReviewImgList>();
+
+        ArrayList<ReviewImgList> reviewImgList = new ArrayList<ReviewImgList>();
+
+        for (Review r : reviewList){
+            List<ReviewImg> img = mapper.reviewImgGet(r.getReview_seq());
+            ReviewImgList reviewimg = new ReviewImgList(r, img);
+            reviewImgList.add(reviewimg);
+        }
+
+        return reviewImgList;
         
     }
     
