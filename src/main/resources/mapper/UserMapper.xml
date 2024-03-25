@@ -94,4 +94,30 @@ select user_nick from USERS where user_id = #{id}
       
 </insert>
 
+<select id="reviewModify" resultType="com.smhrd.botbuddies.entity.ReviewMa">
+SELECT
+    RV.review_seq,
+    RV.user_id,
+    RV.store_seq,
+    RV.title,
+    RV.details,
+    RV.answer,
+    RV.score,
+    ST.store_name,
+    DATE_FORMAT(RV.create_at, '%Y-%m-%d') AS review_date,
+    GROUP_CONCAT(RI.img_filename) AS image_filenames
+FROM
+    USERS US
+JOIN
+    REVIEWS RV ON US.user_nick = RV.user_id
+JOIN
+    STORES ST ON RV.store_seq = ST.store_seq
+LEFT JOIN
+    REVIEW_IMG RI ON RV.review_seq = RI.review_seq
+WHERE
+    US.user_id = #{id}
+GROUP BY
+    RV.review_seq, RV.user_id, RV.store_seq, RV.title, RV.details, RV.score, ST.store_name,  RV.create_at
+</select>
+
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Review;
+import com.smhrd.botbuddies.entity.ReviewMa;
 import com.smhrd.botbuddies.entity.ReviewRequest;
 import com.smhrd.botbuddies.entity.User;
 import com.smhrd.botbuddies.mapper.UserMapper;
@@ -102,6 +103,17 @@ public class UserController {
         }
         
 
+    }
+    
+
+    @RequestMapping("/reviewModify")
+    public List<ReviewMa> requestMethodName(@RequestBody Map<String,String> requestData) {
+        System.out.println("구분하기 -----------------------");
+        String id = requestData.get("id");
+        System.out.println(id);
+        List<ReviewMa> ReviewModify = mapper.reviewModify(id);
+        System.out.println(ReviewModify);
+        return ReviewModify;
     }
     
 }
