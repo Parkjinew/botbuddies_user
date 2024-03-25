@@ -79,6 +79,7 @@ public class UserController {
     public void reviewWrite(@RequestBody ReviewRequest requestData) {
         String id = requestData.getId();
         String storeName = requestData.getStoreName();
+        int orderNum = requestData.getOrderNum();
         int rating = requestData.getRating();
         List<String> photos = requestData.getPhotos();
         String reviewText = requestData.getReviewText();
@@ -90,10 +91,11 @@ public class UserController {
         System.out.println(reviewTitle);
         System.out.println(photos);
         String storeSeq = mapper.storeSeq(storeName);
+        String nick = mapper.userNick(id);
         System.out.println(storeSeq);
        
-        mapper.reviewWrite(id, storeSeq, rating,reviewTitle,reviewText);
-        Integer review_seq = mapper.reviewSeq(id, storeSeq, reviewTitle, reviewText);
+        mapper.reviewWrite(nick, storeSeq, orderNum, rating,reviewTitle,reviewText);
+        Integer review_seq = mapper.reviewSeq(nick, storeSeq, reviewTitle, reviewText);
         System.out.println(review_seq);
         for(String i : photos){
             mapper.reviewImg(review_seq,i);

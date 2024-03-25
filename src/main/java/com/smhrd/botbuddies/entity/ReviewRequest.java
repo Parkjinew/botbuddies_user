@@ -19,4 +19,5 @@ public class ReviewRequest {
     private List<String> photos;
     private String reviewText;
     private String reviewTitle;
+    private int orderNum;
 }
