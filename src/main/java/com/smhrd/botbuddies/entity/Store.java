@@ -35,7 +35,8 @@ public class Store {
 
     private int tableCount;
 
-    public Store(int store_seq, String store_name, int category_seq, int AverageRating, int ReviewCount,String ImageFilename){
+    public Store( int store_seq, String store_name, int category_seq, int AverageRating, int ReviewCount,String ImageFilename){
+    
         this.store_seq = store_seq;
         this.store_name = store_name;
         this.category_seq = category_seq;
@@ -71,8 +72,20 @@ public class Store {
         this.open_state = open_state;
     }
 
+    public Store(int store_seq, String store_name, int category_seq, String open_state, int averageRating,
+            int reviewCount, String imageFilename) {
+        this.store_seq = store_seq;
+        this.store_name = store_name;
+        this.category_seq = category_seq;
+        this.open_state = open_state;
+        AverageRating = averageRating;
+        ReviewCount = reviewCount;
+        ImageFilename = imageFilename;
+    }
+
     
     
+
 
 
 
