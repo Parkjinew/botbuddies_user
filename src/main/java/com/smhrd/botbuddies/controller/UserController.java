@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Order;
+import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Review;
 import com.smhrd.botbuddies.entity.ReviewMa;
 import com.smhrd.botbuddies.entity.ReviewRequest;
@@ -126,4 +127,24 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
     mapper.reviewDelete(review_seq);
     return ResponseEntity.ok("리뷰가 삭제되었습니다."); // 성공 메시지 반환
 }
+
+    @RequestMapping("/reservaList")
+    public List<Reservation> ReservaList(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        System.out.println("들어옴 ------------------------------" +id);
+        List<Reservation> reservation = mapper.reservaList(id);
+        System.out.println(reservation);
+        return reservation;
+    }
+    
+
+    @RequestMapping("/reserveCancel")
+    public void reserveCancel(@RequestBody Map<String, String> requestData) {
+        String reserve_seq = requestData.get("id");
+        System.out.println(reserve_seq);
+        mapper.reserveCancle(reserve_seq);
+
+    }
+    
+
 }

@@ -126,4 +126,29 @@ GROUP BY
 <delete id="reviewDelete">
      DELETE FROM REVIEWS WHERE review_seq = #{review_seq}
 </delete>
+
+<select id="reservaList" resultType="com.smhrd.botbuddies.entity.Reservation">
+SELECT 
+    R.reserve_seq,
+    R.reserve_name, 
+    R.reserve_date, 
+    R.reserve_time, 
+    R.reserve_num, 
+    R.state, 
+    S.store_name,
+    S.store_seq
+FROM 
+    RESERVATIONS R
+JOIN 
+    STORES S ON R.store_seq = S.store_seq
+WHERE 
+    R.user_id = #{id} AND 
+    R.state IN (0, 1)
+ORDER BY 
+    R.state DESC, R.reserve_date, R.reserve_time
+</select>
+
+<delete id="reserveCancle">
+delete from RESERVATIONS where reserve_seq = #{id};
+</delete>
 </mapper>

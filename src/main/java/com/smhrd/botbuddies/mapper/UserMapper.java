@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.botbuddies.entity.Order;
+import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.ReviewMa;
 import com.smhrd.botbuddies.entity.User;
 
@@ -27,4 +28,6 @@ public interface UserMapper {
     public List<ReviewMa> reviewModify(String id);
     public void deleteImg(String review_seq);
     public void reviewDelete(String review_seq);
+    public List<Reservation> reservaList(String id);
+    public void reserveCancle(String id);
 }
