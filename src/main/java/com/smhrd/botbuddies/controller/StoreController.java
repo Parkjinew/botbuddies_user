@@ -356,6 +356,14 @@ public class StoreController {
     }
     
 
+    @RequestMapping("/selectStore")
+    public void selectStore(@RequestBody StoreMenu requestData) {
+        System.out.println("들어왔음");
+        System.out.println(requestData.getLocation());
+        System.out.println(requestData.getNouns());
+       
+    }
+
 
 
 

@@ -22,9 +22,20 @@ public class StoreMenu {
     private String user_id;
     private List<Order> orders;
     private int selectedTable;
+    private String location;
+    private List<String> nouns;
+
 
     
-    
+
+
+    public StoreMenu(String location, List<String> nouns) {
+        this.location = location;
+        this.nouns = nouns;
+    }
+
+
+
 
     @JsonCreator
     public StoreMenu(int store_seq, String user_id, List<Order> orders, int selectedTable) {
