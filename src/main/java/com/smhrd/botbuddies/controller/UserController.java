@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smhrd.botbuddies.entity.INQUIRIES;
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Review;
@@ -157,5 +158,14 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
         mapper.userInquiry(id, title,content);
 
     }
+    @RequestMapping("/inquiryCheck")
+    public List<INQUIRIES> inquiryCheck(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        System.out.println(id);
 
+        List<INQUIRIES> inquiryCheck = mapper.inquiryCheck(id);
+
+        return inquiryCheck;
+
+    }
 }
