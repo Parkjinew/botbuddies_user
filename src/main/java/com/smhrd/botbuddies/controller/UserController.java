@@ -188,5 +188,15 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
 
     }
 
+    @RequestMapping("/pwsetting")
+    public void pwsetting(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        String newPassword = requestData.get("newPassword");
+        System.out.println(id);
+        System.out.println(newPassword);
+        mapper.pwsetting(id, newPassword);
+
+    }
+
 
 }

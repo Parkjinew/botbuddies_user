@@ -35,4 +35,5 @@ public interface UserMapper {
     public List<INQUIRIES> inquiryCheck(String id);
     public void nicksetting(String id, String inputText);
     public void numbersetting(String id, String inputText);
+    public void pwsetting(String id, String newPassword);
 }
