@@ -75,5 +75,9 @@ public interface StoreMapper {
 
     public List<Store> searchStore(String location, String keyword);
 
+    public List<Review> reviewhigh(String store_seq);
+
+    public List<Review> reviewlow(String store_seq);
+
     
 }

@@ -385,7 +385,35 @@ public class StoreController {
     }
 
 
-    
+    @RequestMapping("/reviewAlign")
+    public ArrayList<ReviewImgList> reviewAlign(@RequestBody Map<String, String> requestData) {
+        
+        String store_seq = requestData.get("store_seq");
+        String option = requestData.get("option");
+
+        System.out.println(option);
+
+        List<Review> reviewList = null;
+        
+        if(option.equals("최신순")){
+            reviewList = mapper.storeReview(store_seq);
+        }else if(option.equals("별점 높은순")){
+            reviewList = mapper.reviewhigh(store_seq);
+        }else{
+            reviewList = mapper.reviewlow(store_seq);
+        }
+
+        ArrayList<ReviewImgList> reviewImgList = new ArrayList<ReviewImgList>();
+
+        for (Review r : reviewList){
+            List<ReviewImg> img = mapper.reviewImgGet(r.getReview_seq());
+            ReviewImgList reviewimg = new ReviewImgList(r, img);
+            reviewImgList.add(reviewimg);
+        }
+
+        return reviewImgList;
+        
+    }
 
 
 

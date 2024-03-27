@@ -156,4 +156,12 @@ order by rand()
 limit 5 
 </select>
 
+<select id="reviewhigh" resultType="com.smhrd.botbuddies.entity.Review">
+select * from REVIEWS where store_seq = #{store_seq} order by score desc
+</select>
+
+<select id="reviewlow" resultType="com.smhrd.botbuddies.entity.Review">
+select * from REVIEWS where store_seq = #{store_seq} order by score
+</select>
+
 </mapper>
