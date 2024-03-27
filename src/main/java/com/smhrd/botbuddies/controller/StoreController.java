@@ -361,6 +361,10 @@ public class StoreController {
         System.out.println("들어왔음");
         String location = requestData.getLocation();
         List<String> nouns = requestData.getNouns();
+
+        if(location.equals("수완지구")){
+            location = "수완";
+        }
         
         for (String i : nouns){
             if(i.equals("충장로") || i.equals("광주")){
@@ -373,7 +377,7 @@ public class StoreController {
         if(nouns.size() > 0){
             keyword = nouns.get(0);
         }
-        System.out.println(keyword);
+        System.out.println(location);
 
        List<Store> storeList = mapper.searchStore(location, keyword);
         
