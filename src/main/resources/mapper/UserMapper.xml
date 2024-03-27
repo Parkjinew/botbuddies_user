@@ -156,4 +156,9 @@ delete from RESERVATIONS where reserve_seq = #{id};
 INSERT INTO INQUIRIES (user_id, title, details)
 VALUES (#{id}, #{title}, #{content})
 </insert>
+
+
+<select id="inquiryCheck" resultType="com.smhrd.botbuddies.entity.INQUIRIES">
+SELECT title, details, answer FROM INQUIRIES WHERE user_id = #{id}
+</select>
 </mapper>

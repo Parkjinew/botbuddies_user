@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.smhrd.botbuddies.entity.INQUIRIES;
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.ReviewMa;
@@ -31,4 +32,5 @@ public interface UserMapper {
     public List<Reservation> reservaList(String id);
     public void reserveCancle(String id);
     public void userInquiry(String id, String title, String content);
+    public List<INQUIRIES> inquiryCheck(String id);
 }
