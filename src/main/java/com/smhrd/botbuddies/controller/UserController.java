@@ -168,4 +168,25 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
         return inquiryCheck;
 
     }
+
+    @RequestMapping("/nicksetting")
+    public void nicksetting(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        String inputText = requestData.get("inputText");
+        System.out.println(id);
+        mapper.nicksetting(id, inputText);
+
+    }
+
+
+    @RequestMapping("/numbersetting")
+    public void numbersetting(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        String inputText = requestData.get("inputText");
+        System.out.println(id);
+        mapper.numbersetting(id, inputText);
+
+    }
+
+
 }

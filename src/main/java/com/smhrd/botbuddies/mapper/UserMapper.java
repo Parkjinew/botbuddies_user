@@ -33,4 +33,6 @@ public interface UserMapper {
     public void reserveCancle(String id);
     public void userInquiry(String id, String title, String content);
     public List<INQUIRIES> inquiryCheck(String id);
+    public void nicksetting(String id, String inputText);
+    public void numbersetting(String id, String inputText);
 }
