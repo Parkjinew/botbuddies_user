@@ -164,4 +164,16 @@ select * from REVIEWS where store_seq = #{store_seq} order by score desc
 select * from REVIEWS where store_seq = #{store_seq} order by score
 </select>
 
+<select id="likeTF" resultType="int">
+select count(*) from INTEREST where user_id=#{id} and store_seq=#{store_seq}
+</select>
+
+<delete id="delLike">
+delete from INTEREST where user_id=#{id} and store_seq=#{store_seq}
+</delete>
+
+<insert id="insertLike">
+insert into INTEREST(user_id, store_seq) values (#{id}, #{store_seq})
+</insert>
+
 </mapper>

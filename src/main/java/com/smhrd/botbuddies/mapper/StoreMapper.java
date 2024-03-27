@@ -79,5 +79,11 @@ public interface StoreMapper {
 
     public List<Review> reviewlow(String store_seq);
 
+    public int likeTF(String id, String store_seq);
+
+    public void delLike(String id, String store_seq);
+
+    public void insertLike(String id, String store_seq);
+
     
 }

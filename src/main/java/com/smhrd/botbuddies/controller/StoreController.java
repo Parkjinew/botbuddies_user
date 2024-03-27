@@ -416,6 +416,40 @@ public class StoreController {
     }
 
 
+    @RequestMapping("/LikeTF")
+    public boolean LikeTF(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("user_id");
+        String store_seq = requestData.get("store_seq");
+
+        int count = mapper.likeTF(id, store_seq);
+        System.out.println(count);
+
+        if(count > 0){
+            return true;
+        } else{
+            return false;
+        }
+        
+    }
+
+    @RequestMapping("/Like")
+    public void Like(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("user_id");
+        String store_seq = requestData.get("store_seq");
+        String like = requestData.get("like");
+
+        System.out.println(like);
+
+        if(like.equals("true")){
+            mapper.delLike(id, store_seq);
+        } else{
+            mapper.insertLike(id, store_seq);
+        }
+        
+        
+    }
+
+
 
 
 
