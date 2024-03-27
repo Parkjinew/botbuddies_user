@@ -143,4 +143,15 @@ select * from REVIEWS where store_seq = #{store_seq} order by create_at desc
 select * from REVIEW_IMG where review_seq=#{review_seq}
 </select>
 
+<select id="searchStore" resultType="com.smhrd.botbuddies.entity.Store">
+select store_seq, store_name, store_addr
+from STORES
+where state = 1
+and store_addr Like CONCAT('%' , #{location} , '%')
+and store_seq in (select store_seq from MENUS where menu_name like CONCAT('%' , #{keyword} , '%'))
+or category_seq in (select category_seq from CATEGORIES where category_name like CONCAT('%' , #{keyword} , '%') )
+order by rand()
+limit 5 
+</select>
+
 </mapper>

@@ -73,5 +73,7 @@ public interface StoreMapper {
 
     public List<ReviewImg> reviewImgGet(int review_seq);
 
+    public List<Store> searchStore(String location, String keyword);
+
     
 }
