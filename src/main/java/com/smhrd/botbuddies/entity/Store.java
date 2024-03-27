@@ -83,10 +83,11 @@ public class Store {
         ImageFilename = imageFilename;
     }
 
-    public Store(int store_seq, String store_name, String store_addr) {
+    public Store(int store_seq, String store_name, String store_addr, String imageFilename ) {
         this.store_seq = store_seq;
         this.store_name = store_name;
         this.store_addr = store_addr;
+        ImageFilename = imageFilename;
     }
 
     
