@@ -151,4 +151,9 @@ ORDER BY
 <delete id="reserveCancle">
 delete from RESERVATIONS where reserve_seq = #{id};
 </delete>
+
+<insert id="userInquiry">
+INSERT INTO INQUIRIES (user_id, title, details)
+VALUES (#{id}, #{title}, #{content})
+</insert>
 </mapper>

@@ -146,6 +146,16 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
 
     }
     
-  
+    @RequestMapping("/userInquiry")
+    public void userInquiry(@RequestBody Map<String, String> requestData) {
+        String id = requestData.get("id");
+        String title = requestData.get("title");
+        String content = requestData.get("content");
+        System.out.println(id);
+        System.out.println(title);
+        System.out.println(content);
+        mapper.userInquiry(id, title,content);
+
+    }
 
 }

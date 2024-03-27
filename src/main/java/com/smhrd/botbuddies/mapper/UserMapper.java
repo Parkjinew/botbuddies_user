@@ -30,4 +30,5 @@ public interface UserMapper {
     public void reviewDelete(String review_seq);
     public List<Reservation> reservaList(String id);
     public void reserveCancle(String id);
+    public void userInquiry(String id, String title, String content);
 }
