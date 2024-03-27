@@ -144,14 +144,14 @@ select * from REVIEW_IMG where review_seq=#{review_seq}
 </select>
 
 <select id="searchStore" resultType="com.smhrd.botbuddies.entity.Store">
-select s.store_seq, s.store_name, s.store_addr, SI.img_filename AS ImageFilename
-from STORES s
-	LEFT JOIN STORE_IMG SI ON s.store_seq = SI.store_seq
+SELECT s.store_seq, s.store_name, s.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,s.store_desc, SI.img_filename AS ImageFilename, s.open_state 
+FROM STORES s LEFT JOIN REVIEWS R ON s.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON s.store_seq = SI.store_seq 
 where s.state = 1
 and (s.store_name Like CONCAT('%' , #{location} , '%')
 or s.store_addr Like CONCAT('%' , #{location} , '%'))
 and (s.store_seq in (select store_seq from MENUS where menu_name like CONCAT('%' , #{keyword} , '%'))
 or s.category_seq in (select category_seq from CATEGORIES where category_name like CONCAT('%' , #{keyword} , '%') ))
+GROUP BY s.store_seq, s.store_name, s.category_seq,s.store_desc, SI.img_filename
 order by rand()
 limit 5 
 </select>

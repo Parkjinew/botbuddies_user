@@ -365,6 +365,10 @@ public class StoreController {
         if(location.equals("수완지구")){
             location = "수완";
         }
+
+        if(location.equals("동명동")){
+            location = "동명";
+        }
         
         for (String i : nouns){
             if(i.equals("충장로") || i.equals("광주")){
@@ -447,6 +451,43 @@ public class StoreController {
         }
         
         
+    }
+
+
+    @RequestMapping("/paycafe")
+    public void paycafe(@RequestBody StoreMenu requestData) {
+        System.out.println("들어왔음");
+        int store_seq = requestData.getStore_seq();
+        String user_id = requestData.getUser_id();
+        List<Order> orderDetails = requestData.getOrders();
+
+        System.out.println(store_seq);
+        System.out.println(user_id);
+        
+        System.out.println(orderDetails.get(0).toString());
+
+        Integer result = mapper.getOrderNum(store_seq);
+
+        int num = (result != null) ? result : 0;
+
+        System.out.println(num);
+
+        int totalAmount = 0;
+
+
+
+        for(Order order : orderDetails){
+            int amount = mapper.getAmount(order.getMenu_seq());
+            totalAmount+= amount*order.getQuantity();
+        }
+        for(Order order : orderDetails){
+            int amount = mapper.getAmount(order.getMenu_seq());
+            int pay_amount = amount*order.getQuantity();
+            mapper.orderInsert(store_seq, user_id, order.getMenu_seq(), num+1, order.getQuantity(),totalAmount, 0, pay_amount, totalAmount, "card");
+            
+
+        }
+
     }
 
 

@@ -24,7 +24,23 @@ public class Reservation {
     private String reserve_at;
     private String store_name;
 
+    
 
+
+
+
+    public Reservation(int reserve_seq, String user_id, int store_seq, String reserve_name, String reserve_date,
+            String reserve_time, int reserve_num, String state, String reserve_at) {
+        this.reserve_seq = reserve_seq;
+        this.user_id = user_id;
+        this.store_seq = store_seq;
+        this.reserve_name = reserve_name;
+        this.reserve_date = reserve_date;
+        this.reserve_time = reserve_time;
+        this.reserve_num = reserve_num;
+        this.state = state;
+        this.reserve_at = reserve_at;
+    }
 
 
     @JsonCreator
