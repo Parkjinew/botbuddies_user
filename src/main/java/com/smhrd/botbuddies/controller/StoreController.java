@@ -357,14 +357,31 @@ public class StoreController {
     
 
     @RequestMapping("/selectStore")
-    public void selectStore(@RequestBody StoreMenu requestData) {
+    public List<Store> selectStore(@RequestBody StoreMenu requestData) {
         System.out.println("들어왔음");
-        System.out.println(requestData.getLocation());
-        System.out.println(requestData.getNouns());
-       
+        String location = requestData.getLocation();
+        List<String> nouns = requestData.getNouns();
+        
+        for (String i : nouns){
+            if(i.equals("충장로") || i.equals("광주")){
+                location = i;
+                nouns.remove(i);
+            }
+        }
+
+        String keyword = "";
+        if(nouns.size() > 0){
+            keyword = nouns.get(0);
+        }
+        System.out.println(keyword);
+
+       List<Store> storeList = mapper.searchStore(location, keyword);
+        
+        return storeList;
     }
 
 
+    
 
 
 
