@@ -490,7 +490,8 @@ public class StoreController {
 
         for (Review r : reviewList){
             List<ReviewImg> img = mapper.reviewImgGet(r.getReview_seq());
-            ReviewImgList reviewimg = new ReviewImgList(r, img);
+            String user_nick = mapper.getNick(r.getUser_id());
+            ReviewImgList reviewimg = new ReviewImgList(r, img, user_nick);
             reviewImgList.add(reviewimg);
         }
 
