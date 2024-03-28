@@ -36,4 +36,6 @@ public interface UserMapper {
     public void nicksetting(String id, String inputText);
     public void numbersetting(String id, String inputText);
     public void pwsetting(String id, String newPassword);
+    public int idcheck(String id);
+    public void signup(String id,String pw,String name,String phone );
 }

@@ -180,6 +180,15 @@ SET user_pw = MD5(#{newPassword})
 WHERE user_id= #{id}
 </update>
 
+<select id="idcheck" parameterType="String" resultType="int">
+select count(*) from USERS where user_id=#{id} 
+</select>
 
+<insert id= "signup" >
+INSERT INTO USERS
+(user_id, user_pw, user_name, user_nick, user_phone, user_role)
+VALUES
+(#{id}, md5(#{pw}), #{name}, #{name}, #{phone}, 2);
+</insert>
 
 </mapper>
