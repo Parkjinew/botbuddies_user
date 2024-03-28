@@ -62,7 +62,7 @@ WHERE
 GROUP BY
     o.order_num, s.store_name, o.total_amount, o.store_seq, DATE_FORMAT(order_at, '%Y-%m-%d')
 ORDER BY
-    DATE_FORMAT(order_at, '%Y-%m-%d')
+    DATE_FORMAT(order_at, '%Y-%m-%d') DESC
 LIMIT 0, 1000
 
 
@@ -78,7 +78,7 @@ select user_nick from USERS where user_id = #{id}
 
 <insert id="reviewWrite">
     INSERT INTO REVIEWS (user_id, store_seq, order_num, score, title, details)
-    VALUES (#{nick}, #{storeSeq},#{orderNum}, #{rating}, #{reviewTitle}, #{reviewText})
+    VALUES (#{id}, #{storeSeq},#{orderNum}, #{rating}, #{reviewTitle}, #{reviewText})
 </insert>
 
 <select id="reviewSeq" resultType="Integer">
