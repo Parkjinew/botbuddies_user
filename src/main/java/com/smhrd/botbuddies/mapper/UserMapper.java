@@ -23,7 +23,7 @@ public interface UserMapper {
 
     public String storeSeq(String storeName);
     public String userNick(String id);
-    public void reviewWrite(String nick,String storeSeq,int orderNum, int rating,String reviewTitle, String reviewText);
+    public void reviewWrite(String id,String storeSeq,int orderNum, int rating,String reviewTitle, String reviewText);
     public Integer reviewSeq(String nick,String storeSeq,String reviewTitle,String reviewText);
     public void reviewImg(int review_seq, String photos);
     public List<ReviewMa> reviewModify(String id);

@@ -78,7 +78,7 @@ select user_nick from USERS where user_id = #{id}
 
 <insert id="reviewWrite">
     INSERT INTO REVIEWS (user_id, store_seq, order_num, score, title, details)
-    VALUES (#{nick}, #{storeSeq},#{orderNum}, #{rating}, #{reviewTitle}, #{reviewText})
+    VALUES (#{id}, #{storeSeq},#{orderNum}, #{rating}, #{reviewTitle}, #{reviewText})
 </insert>
 
 <select id="reviewSeq" resultType="Integer">
