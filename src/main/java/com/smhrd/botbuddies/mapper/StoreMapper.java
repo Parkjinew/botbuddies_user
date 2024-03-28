@@ -85,5 +85,7 @@ public interface StoreMapper {
 
     public void insertLike(String id, String store_seq);
 
+    public String getNick(String user_id);
+
     
 }
