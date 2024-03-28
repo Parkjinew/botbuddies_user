@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.botbuddies.mapper.StoreMapper">
 <select id="storeListAll" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by S.open_state desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by S.open_state desc, rand()
 </select>
 
 <select id="storeList" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
-SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by S.open_state desc
+SELECT S.store_seq, S.store_name, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by S.open_state desc, rand()
 </select>
 
 <select id="searchResult" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
@@ -178,6 +178,14 @@ insert into INTEREST(user_id, store_seq) values (#{id}, #{store_seq})
 
 <select id="getNick" resultType="String">
 select user_nick from USERS where user_id=#{user_id}
+</select>
+
+<select id="storeListAlladdr" resultType="com.smhrd.botbuddies.entity.Store">
+SELECT S.store_seq, S.store_name, S.store_addr, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq where S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq,S.store_desc, SI.img_filename order by S.open_state desc, rand()
+</select>
+
+<select id="storeListaddr" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
+SELECT S.store_seq, S.store_name, S.store_addr, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by S.open_state desc, rand()
 </select>
 
 </mapper>

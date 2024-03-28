@@ -87,5 +87,9 @@ public interface StoreMapper {
 
     public String getNick(String user_id);
 
+    public List<Store> storeListaddr(String category);
+
+    public List<Store> storeListAlladdr();
+
     
 }

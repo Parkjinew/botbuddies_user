@@ -3,7 +3,9 @@ package com.smhrd.botbuddies.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Comparator;
 
+import org.apache.logging.log4j.util.PropertySource.Comparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import com.smhrd.botbuddies.entity.StoreMenu;
 import com.smhrd.botbuddies.entity.Table;
 import com.smhrd.botbuddies.entity.Tabling;
 import com.smhrd.botbuddies.mapper.StoreMapper;
+import com.smhrd.botbuddies.service.GeocodingService;
 
 
 
@@ -28,6 +31,9 @@ public class StoreController {
 
     @Autowired
     private StoreMapper mapper;
+
+    @Autowired
+    private GeocodingService geocodingService;
 
     @RequestMapping("/storeList")
     public List<Store> storeList(@RequestBody Map<String, String> requestData) {
@@ -92,9 +98,28 @@ public class StoreController {
     public List<Store> storeAlign(@RequestBody Map<String, String> requestData) {
         String align = requestData.get("align");
         String category = requestData.get("category");
+        String userAddr = requestData.get("selectedAddress");
+        
+        String geo = geocodingService.getGeocode(userAddr);
+        geo = geo.split("location")[1];
+        String lat = geo.split(",")[0];
+        String lng = geo.split(",")[1];
+        lat = lat.split(": ")[2];
+        lng = lng.split(": ")[1];
+        lng = lng.split("}")[0];
+
+        float latNum = Float.parseFloat(lat); 
+        float lngNum = Float.parseFloat(lng);
+        double lat1Radians= Math.toRadians(latNum);
+        double lon1Radians = Math.toRadians(lngNum);
+
+        final double R = 6371.0;
         
         System.out.println(align);
         System.out.println(category);
+      
+        System.out.println(latNum);
+        System.out.println(lngNum);
 
         List<Store> storeList = null;
 
@@ -103,7 +128,7 @@ public class StoreController {
                 storeList = mapper.storeListAll();
 
             } else if(align.equals("distance")){
-                storeList = mapper.storeListAll();
+                storeList = mapper.storeListAlladdr();
 
             } else if(align.equals("rating")){
                 storeList = mapper.storeListAllScore();
@@ -118,7 +143,7 @@ public class StoreController {
                 storeList = mapper.storeList(category);
 
             } else if(align.equals("distance")){
-                storeList = mapper.storeList(category);
+                storeList = mapper.storeListaddr(category);
 
             } else if(align.equals("rating")){
                 storeList = mapper.storeListScore(category);
@@ -129,6 +154,58 @@ public class StoreController {
             }
 
         }
+
+        ArrayList<Double> radians = new ArrayList<>();
+        
+        if(align.equals("distance")){
+
+
+            for(int i = 0; i<storeList.size(); i++){
+                String addr = storeList.get(i).getStore_addr();
+
+                String sgeo = geocodingService.getGeocode(addr);
+
+                sgeo = sgeo.split("location")[1];
+                String slat = sgeo.split(",")[0];
+                String slng = sgeo.split(",")[1];
+                slat = slat.split(": ")[2];
+                slng = slng.split(": ")[1];
+                slng = slng.split("}")[0];
+
+                float slatNum = Float.parseFloat(slat); 
+                float slngNum = Float.parseFloat(slng);
+
+                double lat2Radians = Math.toRadians(slatNum);
+                double lon2Radians = Math.toRadians(slngNum);
+
+                // 위도 및 경도의 차이 계산
+                double dLat = lat2Radians - lat1Radians;
+                double dLon = lon2Radians - lon1Radians;
+
+                // 하버사인 제곱의 반을 계산
+                double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(lat1Radians) * Math.cos(lat2Radians) * Math.pow(Math.sin(dLon / 2), 2);
+
+                // 중심 각도 계산
+                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+                // 거리 계산
+                double distance = R * c;
+
+
+                radians.add(distance);
+
+            }
+
+            final List<Store> storeList2 = storeList;
+            final ArrayList<Double> radians2 = radians;
+
+            storeList2.sort(Comparator.comparingDouble(store -> radians2.get(storeList2.indexOf(store))));
+
+            storeList = storeList2;
+
+        }
+
+        
 
                 
 
