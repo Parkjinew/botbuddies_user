@@ -95,11 +95,10 @@ public class UserController {
         System.out.println(reviewTitle);
         System.out.println(photos);
         String storeSeq = mapper.storeSeq(storeName);
-        String nick = mapper.userNick(id);
         System.out.println(storeSeq);
        
-        mapper.reviewWrite(nick, storeSeq, orderNum, rating,reviewTitle,reviewText);
-        Integer review_seq = mapper.reviewSeq(nick, storeSeq, reviewTitle, reviewText);
+        mapper.reviewWrite(id, storeSeq, orderNum, rating,reviewTitle,reviewText);
+        Integer review_seq = mapper.reviewSeq(id, storeSeq, reviewTitle, reviewText);
         System.out.println(review_seq);
         for(String i : photos){
             mapper.reviewImg(review_seq,i);
