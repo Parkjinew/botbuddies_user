@@ -118,6 +118,7 @@ WHERE
     US.user_id = #{id}
 GROUP BY
     RV.review_seq, RV.user_id, RV.store_seq, RV.title, RV.details, RV.score, ST.store_name,  RV.create_at
+ORDER BY RV.create_at DESC
 </select>
 
 <delete id="deleteImg">
@@ -159,7 +160,7 @@ VALUES (#{id}, #{title}, #{content})
 
 
 <select id="inquiryCheck" resultType="com.smhrd.botbuddies.entity.INQUIRIES">
-SELECT title, details, answer FROM INQUIRIES WHERE user_id = #{id}
+SELECT title, details, answer FROM INQUIRIES WHERE user_id = #{id} ORDER BY create_at DESC
 </select>
 
 <update id="nicksetting">
