@@ -22,6 +22,7 @@ public class Store {
     private int category_seq;
     private String store_desc;
     private String tabling_state;
+    private String reserva_state;
     private String state;
     private String open_time;
     private String end_time;
