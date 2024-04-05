@@ -40,6 +40,7 @@ public class UserController {
 
     @RequestMapping("/signin")
     public List<User> signin(@RequestBody Map<String, String> requestData){
+        System.out.println("들어왔음");
         String id = requestData.get("id");
         String password = requestData.get("password");
 
