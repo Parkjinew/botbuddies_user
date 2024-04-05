@@ -571,7 +571,11 @@ public class StoreController {
     }
 
 
-
+    @RequestMapping("/test")
+    public String test(){
+        System.out.println("성공");
+        return "성공";
+    }
 
 
 
