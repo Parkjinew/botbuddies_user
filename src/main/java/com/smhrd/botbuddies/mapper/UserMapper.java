@@ -9,6 +9,7 @@ import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.ReviewMa;
 import com.smhrd.botbuddies.entity.User;
+import com.smhrd.botbuddies.entity.Notification;
 
 @Mapper
 public interface UserMapper {
@@ -38,4 +39,10 @@ public interface UserMapper {
     public void pwsetting(String id, String newPassword);
     public int idcheck(String id);
     public void signup(String id,String pw,String name,String phone );
+    public List<Notification> notification();
+    public List<User> getuser(String id, String password);
+    public List<Notification> noti(String id);
+
+    public Notification getNotification(String id);
+
 }

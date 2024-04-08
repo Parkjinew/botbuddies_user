@@ -40,7 +40,7 @@ LEFT JOIN
 LEFT JOIN 
     STORE_IMG SI ON S.store_seq = SI.store_seq 
 LEFT JOIN 
-    STORE_TABLE ST on S.store_seq = ST.STORE_SEQ 
+    (select * from STORE_TABLE where table_state='1') ST on S.store_seq = ST.STORE_SEQ 
 WHERE 
     S.store_seq = #{store_seq}
 GROUP BY 
@@ -188,5 +188,29 @@ SELECT S.store_seq, S.store_name, S.store_addr, S.category_seq, ROUND(COALESCE(A
 <select id="storeListaddr" parameterType="String" resultType="com.smhrd.botbuddies.entity.Store">
 SELECT S.store_seq, S.store_name, S.store_addr, S.category_seq, ROUND(COALESCE(AVG(R.score), 0), 1) AS AverageRating, COUNT(R.title) AS ReviewCount,S.store_desc, SI.img_filename AS ImageFilename, S.open_state FROM STORES S LEFT JOIN REVIEWS R ON S.store_seq = R.store_seq LEFT JOIN STORE_IMG SI ON S.store_seq = SI.store_seq WHERE S.category_seq=#{id} and S.state='1' GROUP BY S.store_seq, S.store_name, S.category_seq, SI.img_filename order by S.open_state desc, rand()
 </select>
+
+<insert id="tablingNoti">
+insert into NOTIFICATIONS(user_id, type, message) values (#{user_id}, '0', "대기 인원 추가")
+</insert>
+
+<insert id="reservaNoti">
+insert into NOTIFICATIONS(user_id, type, message) values (#{user_id}, '1', "예약 요청")
+</insert>
+
+<insert id="orderNoti">
+insert into NOTIFICATIONS(user_id, type, message) values (#{user_id}, '2', "주문")
+</insert>
+
+<select id="getNoti">
+select count(*) from NOTIFICATIONS where user_id=#{user_id} and state = '0'
+</select>
+
+<select id="notiList" resultType="com.smhrd.botbuddies.entity.Notification">
+select * from NOTIFICATIONS where user_id=#{user_id} order by notice_at desc limit 10
+</select>
+
+<update id="notiState">
+update NOTIFICATIONS set state = '1' where user_id=#{user_id}
+</update>
 
 </mapper>

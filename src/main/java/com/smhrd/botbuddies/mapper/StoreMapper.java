@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.botbuddies.entity.Menu;
+import com.smhrd.botbuddies.entity.Notification;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Review;
 import com.smhrd.botbuddies.entity.ReviewImg;
@@ -91,5 +92,13 @@ public interface StoreMapper {
 
     public List<Store> storeListAlladdr();
 
-    
+    public void tablingNoti(String user_id);
+    public void reservaNoti(String user_id);
+    public void orderNoti(String user_id);
+
+    public int getNoti(String user_id);
+
+public List<Notification> notiList(String user_id);
+
+public void notiState(String user_id);
 }

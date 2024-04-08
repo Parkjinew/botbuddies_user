@@ -23,6 +23,7 @@ public class Reservation {
     private String state;
     private String reserve_at;
     private String store_name;
+    private String store_user;
 
     
 
@@ -52,6 +53,17 @@ public class Reservation {
         this.reserve_date = reserve_date;
         this.reserve_time = reserve_time;
         this.reserve_num = reserve_num;
+    }
+
+    public Reservation(String user_id, int store_seq, String reserve_name, String reserve_date, String reserve_time,
+            int reserve_num, String store_user) {
+        this.user_id = user_id;
+        this.store_seq = store_seq;
+        this.reserve_name = reserve_name;
+        this.reserve_date = reserve_date;
+        this.reserve_time = reserve_time;
+        this.reserve_num = reserve_num;
+        this.store_user = store_user;
     }
 
 

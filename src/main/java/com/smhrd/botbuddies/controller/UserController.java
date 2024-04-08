@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.INQUIRIES;
+import com.smhrd.botbuddies.entity.Notification;
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Review;
@@ -226,6 +227,43 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
         mapper.signup(id,pw,name,phone); 
         
         
+    }
+
+
+    @RequestMapping("/getuser")
+    public List<User> getuser(@RequestBody Map<String, String> requestData){
+        String id = requestData.get("id");
+        String password = requestData.get("password");
+
+        List<User> userInfo = mapper.getuser(id, password);
+
+        if (userInfo != null  && !userInfo.isEmpty()) {
+            return userInfo;
+        } else { 
+            
+            return null;
+        }
+    }
+
+
+    @RequestMapping("/notification")
+    public List<Notification> noti(@RequestBody Map<String, String> requestData){
+        System.out.println("항~~~~~~~~~~~~~~~~~~~~~~이");
+        String id = requestData.get("id");
+
+        List<Notification> noti = mapper.noti(id);
+
+        return noti;
+    }
+
+
+    @RequestMapping("/getnotification")
+    public Notification getnotification(@RequestBody Map<String, String> requestData){
+        String id = requestData.get("id");
+
+        Notification noti = mapper.getNotification(id);
+
+        return noti;
     }
 
 

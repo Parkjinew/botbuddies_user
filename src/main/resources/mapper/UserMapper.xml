@@ -192,4 +192,21 @@ VALUES
 (#{id}, md5(#{pw}), #{name}, #{name}, #{phone}, 2);
 </insert>
 
+<select id="notification" resultType="com.smhrd.botbuddies.entity.Notification">
+select * from NOTIFICATIONS
+</select>
+
+
+<select id="getuser" parameterType='String' resultType="com.smhrd.botbuddies.entity.User">
+select * from USERS where user_id = #{id} and user_pw = #{password} and user_role='2'
+</select>
+
+<select id="noti" parameterType='String' resultType="com.smhrd.botbuddies.entity.Notification">
+ select * from NOTIFICATIONS where user_id= #{id}
+</select>
+
+<select id="getNotification" parameterType='String' resultType="com.smhrd.botbuddies.entity.Notification">
+ select * from NOTIFICATIONS where user_id= #{id} order by NOTICE_AT desc LIMIT 1
+</select>
+
 </mapper>

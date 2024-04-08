@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.botbuddies.entity.Menu;
+import com.smhrd.botbuddies.entity.Notification;
 import com.smhrd.botbuddies.entity.Order;
 import com.smhrd.botbuddies.entity.Reservation;
 import com.smhrd.botbuddies.entity.Review;
@@ -231,6 +232,7 @@ public class StoreController {
         String user_id = requestData.get("user_id");
         String store_seq = requestData.get("store_seq");
         int people_num = Integer.parseInt(requestData.get("people_num"));
+        String store_user = requestData.get("store_user");
 
         System.out.println(store_seq);
 
@@ -244,6 +246,7 @@ public class StoreController {
 
         Tabling wait = new Tabling(waitinfo.getTabling_seq(), waitinfo.getStore_seq(), waitinfo.getUser_id(), waitinfo.getWait_num(), waitinfo.getState(), waitinfo.getPeople_num(), waitinfo.getCreate_at(), count);
 
+        mapper.tablingNoti(store_user);
 
         return wait;
          
@@ -330,6 +333,7 @@ public class StoreController {
         String user_id = requestData.getUser_id();
         List<Order> orderDetails = requestData.getOrders();
         int selectedTable = requestData.getSelectedTable();
+        String store_user = requestData.getStore_user();
 
         System.out.println(store_seq);
         System.out.println(user_id);
@@ -363,6 +367,8 @@ public class StoreController {
 
         }
 
+        mapper.orderNoti(store_user);
+
     }
 
     @RequestMapping("/reservation")
@@ -374,8 +380,10 @@ public class StoreController {
         String reserve_date = requestData.getReserve_date();
         String reserve_time = requestData.getReserve_time();
         int reserve_num = requestData.getReserve_num();
+        String store_user = requestData.getStore_user();
 
         mapper.reservation(user_id, store_seq, reserve_name, reserve_date, reserve_time, reserve_num);
+        mapper.reservaNoti(store_user);
         
     }
    
@@ -460,7 +468,7 @@ public class StoreController {
         if(nouns.size() > 0){
             keyword = nouns.get(0);
         }
-        System.out.println(location);
+        System.out.println(keyword);
 
        List<Store> storeList = mapper.searchStore(location, keyword);
         
@@ -540,6 +548,7 @@ public class StoreController {
         int store_seq = requestData.getStore_seq();
         String user_id = requestData.getUser_id();
         List<Order> orderDetails = requestData.getOrders();
+        String store_user = requestData.getStore_user();
 
         System.out.println(store_seq);
         System.out.println(user_id);
@@ -568,6 +577,8 @@ public class StoreController {
 
         }
 
+        mapper.orderNoti(store_user);
+
     }
 
 
@@ -575,6 +586,31 @@ public class StoreController {
     public String test(){
         System.out.println("성공");
         return "성공";
+    }
+
+    @RequestMapping("/notiState")
+    public boolean notiState(@RequestBody Map<String, String> requestData){
+        String user_id = requestData.get("user_id");
+
+        int count = mapper.getNoti(user_id);
+
+        if(count >0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+    @RequestMapping("/goNoti")
+    public List<Notification> goNoti(@RequestBody Map<String, String> requestData){
+        String user_id = requestData.get("user_id");
+
+        List<Notification> notice = mapper.notiList(user_id);
+        mapper.notiState(user_id);
+
+        return notice;
+        
     }
 
 

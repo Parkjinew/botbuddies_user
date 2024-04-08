@@ -24,6 +24,7 @@ public class StoreMenu {
     private int selectedTable;
     private String location;
     private List<String> nouns;
+    private String store_user;
 
 
     
@@ -43,6 +44,21 @@ public class StoreMenu {
         this.user_id = user_id;
         this.orders = orders;
         this.selectedTable = selectedTable;
+    }
+
+    public StoreMenu(int store_seq, String user_id, List<Order> orders, String store_user) {
+        this.store_seq = store_seq;
+        this.user_id = user_id;
+        this.orders = orders;
+        this.store_user = store_user;
+    }
+
+    public StoreMenu(int store_seq, String user_id, List<Order> orders, int selectedTable, String store_user) {
+        this.store_seq = store_seq;
+        this.user_id = user_id;
+        this.orders = orders;
+        this.selectedTable = selectedTable;
+        this.store_user = store_user;
     }
 
 
