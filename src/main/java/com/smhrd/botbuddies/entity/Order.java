@@ -30,9 +30,9 @@ public class Order {
     private String store_name;
     private String menu_names;
     private String image_filenames;
-    private int review_seq;
+    private String review_seq;
 
-    public Order(String store_name, int store_seq, int order_num, int total_amount, String menu_names, String image_filenames, int review_seq, String order_at) {
+    public Order(String store_name, int store_seq, int order_num, int total_amount, String menu_names, String image_filenames, String review_seq, String order_at) {
         this.order_num = order_num;
         this.total_amount = total_amount;
         this.store_name = store_name;

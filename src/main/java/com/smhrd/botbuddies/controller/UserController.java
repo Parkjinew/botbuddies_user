@@ -262,6 +262,7 @@ public ResponseEntity<String> reviewDelete(@RequestBody Map<String, String> requ
         String id = requestData.get("id");
 
         Notification noti = mapper.getNotification(id);
+        
 
         return noti;
     }

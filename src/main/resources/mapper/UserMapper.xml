@@ -146,7 +146,7 @@ WHERE
     R.user_id = #{id} AND 
     R.state IN (0, 1)
 ORDER BY 
-    R.state DESC, R.reserve_date, R.reserve_time
+    R.state , R.reserve_date, R.reserve_time
 </select>
 
 <delete id="reserveCancle">

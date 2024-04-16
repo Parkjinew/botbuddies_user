@@ -605,9 +605,10 @@ public class StoreController {
     @RequestMapping("/goNoti")
     public List<Notification> goNoti(@RequestBody Map<String, String> requestData){
         String user_id = requestData.get("user_id");
-
+        System.out.println(user_id);
         List<Notification> notice = mapper.notiList(user_id);
         mapper.notiState(user_id);
+
 
         return notice;
         
